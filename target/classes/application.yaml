@@ -1,0 +1,47 @@
+server:
+  port: ${SERVER_PORT:8080}
+rsa:
+  rsa-private-key: ${RSA_PRIVATE_KEY:classpath:certs/private.pem}
+  rsa-public-key: ${RSA_PUBLIC_KEY:classpath:certs/auth.pem}
+
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: auth-microservice
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  #   url: jdbc:mysql://localhost:3306/bamboo
+  #   username: root
+  #   password: mysql
+  #   driver-class-name: com.mysql.cj.jdbc.Driver
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope:
+              - openid
+              - profile
+              - email
+            redirect-uri: ${GOOGLE_REDIRECT_URI}
+            client-name: Google
+
+logging:
+  level:
+    org.springframework.security: trace

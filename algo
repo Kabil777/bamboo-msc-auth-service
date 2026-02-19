@@ -1,0 +1,34 @@
+protocol data units
+    - ethernet frame
+    - ip packet 
+    - tcp segment
+
+analysis / studying of TCP packet: 
+
+    Analyze the total packet size ? what is MTU ?
+    Total data can be transmitted
+    - what is source port ?
+    - what is destination port ?
+    - what is sequence and acknowledgement numbers ?
+    - what are different flags ?
+ ┌───────────────────────────────┬─────────────────────────────────┐
+ │        Source Port (16)       │     Destination Port (16)       │
+ ├───────────────────────────────┴─────────────────────────────────┤
+ │                     Sequence Number (32)                        │
+ ├─────────────────────────────────────────────────────────────────┤
+ │                  Acknowledgment Number (32)                     │
+ ├───────────┬───────────┬─────────────────┬───────────────────────┤
+ │ Data Off  │ Reserved  │   Flags         │     Window Size (16)  │
+ │  (4)      │   (6)     │  (6)            │                       │
+ │           │           │ URG ACK PSH     │                       │
+ │           │           │ RST SYN FIN     │                       │
+ ├───────────────────────────────┬─────────────────────────────────┤
+ │        Checksum (16)          │    Urgent Pointer (16)          │
+ ├─────────────────────────────────────────────────────────────────┤
+ │                 Options (if any) + Padding                      │
+ ├─────────────────────────────────────────────────────────────────┤
+ │                          Data (Payload)                         │
+ └─────────────────────────────────────────────────────────────────┘
+
+    important! how segments/packets/frames are created in sequence for 5mb of image transmission with 1500 mtu
+    Hint: use wireshark to visualize?

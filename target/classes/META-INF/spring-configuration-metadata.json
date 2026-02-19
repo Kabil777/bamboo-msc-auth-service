@@ -1,0 +1,25 @@
+{
+  "groups": [
+    {
+      "name": "rsa",
+      "type": "com.kabi.auth_msc.config.RsaProperties",
+      "sourceType": "com.kabi.auth_msc.config.RsaProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "rsa.rsa-private-key",
+      "type": "java.security.interfaces.RSAPrivateKey",
+      "sourceType": "com.kabi.auth_msc.config.RsaProperties"
+    },
+    {
+      "name": "rsa.rsa-public-key",
+      "type": "java.security.interfaces.RSAPublicKey",
+      "sourceType": "com.kabi.auth_msc.config.RsaProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}
