@@ -1,8 +1,11 @@
 server:
-  port: ${SERVER_PORT:8080}
+  port: ${SERVER_PORT}
+user:
+  service:
+    url: ${USER_SERVICE_URL}
 rsa:
-  rsa-private-key: ${RSA_PRIVATE_KEY:classpath:certs/private.pem}
-  rsa-public-key: ${RSA_PUBLIC_KEY:classpath:certs/auth.pem}
+  rsa-private-key: ${RSA_PRIVATE_KEY}
+  rsa-public-key: ${RSA_PUBLIC_KEY}
 
 spring:
   config:

@@ -1,6 +1,7 @@
 package com.kabi.auth_msc.handlers;
 
 import com.kabi.auth_msc.entity.CustomUserDetails;
+import com.kabi.auth_msc.service.UserProvisioningService;
 import com.kabi.auth_msc.service.jwt.JwtService;
 import com.kabi.auth_msc.service.jwt.RefreshTokenService;
 
@@ -26,12 +27,15 @@ import java.util.Map;
 public class Oauth2SuccessHandler implements AuthenticationSuccessHandler {
     private final JwtService jwtService;
     private final RefreshTokenService refreshTokenService;
+    private final UserProvisioningService userProvisioningService;
 
     public Oauth2SuccessHandler(
             @Qualifier("JwtServiceImplementation") JwtService jwtService,
-            @Qualifier("defaultRefreshTokenService") RefreshTokenService refreshTokenService) {
+            @Qualifier("defaultRefreshTokenService") RefreshTokenService refreshTokenService,
+            UserProvisioningService userProvisioningService) {
         this.jwtService = jwtService;
         this.refreshTokenService = refreshTokenService;
+        this.userProvisioningService = userProvisioningService;
     }
 
     @Override
@@ -73,6 +77,8 @@ public class Oauth2SuccessHandler implements AuthenticationSuccessHandler {
 
         String mode = (String) request.getSession().getAttribute("OAUTH_MODE");
         boolean isNewUser = userDetails.isNewUser();
+
+        userProvisioningService.provisionIfNeeded(userDetails);
         if ("signup".equals(mode) && isNewUser) {
             response.sendRedirect("http://localhost:3000/setprofile");
         } else {
