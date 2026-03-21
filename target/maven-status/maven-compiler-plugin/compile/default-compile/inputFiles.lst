@@ -1,5 +1,6 @@
 /home/kabil/personal/projects/msc/bamboo-repo/bamboo-msc-auth-service/src/main/java/com/kabi/auth_msc/AuthMicroserviceApplication.java
 /home/kabil/personal/projects/msc/bamboo-repo/bamboo-msc-auth-service/src/main/java/com/kabi/auth_msc/config/JwtConfig.java
+/home/kabil/personal/projects/msc/bamboo-repo/bamboo-msc-auth-service/src/main/java/com/kabi/auth_msc/config/RabbitMqConfig.java
 /home/kabil/personal/projects/msc/bamboo-repo/bamboo-msc-auth-service/src/main/java/com/kabi/auth_msc/config/RsaProperties.java
 /home/kabil/personal/projects/msc/bamboo-repo/bamboo-msc-auth-service/src/main/java/com/kabi/auth_msc/config/WebSecurityClient.java
 /home/kabil/personal/projects/msc/bamboo-repo/bamboo-msc-auth-service/src/main/java/com/kabi/auth_msc/controller/JwkController.java

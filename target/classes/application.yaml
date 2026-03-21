@@ -45,6 +45,11 @@ spring:
             redirect-uri: ${GOOGLE_REDIRECT_URI}
             client-name: Google
 
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+
 logging:
   level:
     org.springframework.security: trace
+    org: error

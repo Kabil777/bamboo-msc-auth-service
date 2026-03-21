@@ -3,27 +3,22 @@ package com.kabi.auth_msc.service;
 import com.kabi.auth_msc.dto.ProvisionUserRequest;
 import com.kabi.auth_msc.entity.CustomUserDetails;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
 
 @Service
 public class UserProvisioningService {
 
-    private final RestClient restClient;
+    private final RabbitTemplate rabbitTemplate;
 
-    public UserProvisioningService(
-            RestClient.Builder restClientBuilder,
-            @Value("${user.service.url}") String userServiceUrl) {
-        this.restClient = restClientBuilder.baseUrl(userServiceUrl).build();
+    public UserProvisioningService(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     public void provisionIfNeeded(CustomUserDetails userDetails) {
         if (!userDetails.isNewUser()) {
             return;
         }
-
         ProvisionUserRequest request =
                 new ProvisionUserRequest(
                         userDetails.getId(),
@@ -32,12 +27,6 @@ public class UserProvisioningService {
                         userDetails.getPictureUrl(),
                         userDetails.getName());
 
-        restClient
-                .post()
-                .uri("/internal/user/provision")
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(request)
-                .retrieve()
-                .toBodilessEntity();
+        rabbitTemplate.convertAndSend("user.events", "user.created", request);
     }
 }
